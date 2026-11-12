@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lisää joukkue</title>
+</head>
+
+<body>
+    <h1 th:text="${team.id == null} ? 'Lisää uusi joukkue' : 'Muokkaa joukkuetta'"></h1>
+    <form th:object="${team}" th:action="${team.id == null} ? @{/teams} : @{/teams/edit/{id}(id=${team.id})}"
+        method="post">
+        <label for="name">Joukkueen nimi:</label>
+        <input type="text" th:field="*{name}">
+
+        <button type="submit">Tallenna joukkue</button>
+
+    </form>
+
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import com.floorballmanager.floorballteammanager.repository.PlayerRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 @Controller
 public class PlayerController {
 
