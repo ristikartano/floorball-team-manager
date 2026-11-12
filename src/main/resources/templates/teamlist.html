@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Joukkueet</title>
+</head>
+<body>
+    <h1>Joukkueet</h1>
+    <p>Tervetuloa Floorball Team Manageriin!</p>
+
+    <ul>
+        <li th:each="team : ${teams}" th:text="${team.name}"></li>
+    </ul>
+
+
+</body>
+</html>

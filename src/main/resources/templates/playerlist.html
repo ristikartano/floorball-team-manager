@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pelaajat</title>
+</head>
+<body>
+    <h1>Pelaajat</h1>
+    <p>Pelaajalistat</p>
+
+    <ul>
+        <li th:each="player : ${players}" 
+            th:text="${player.firstName} + ' ' + 
+                ${player.lastName} + ' ' +  
+                '(' + ${player.team.name} + ')'" ></li>
+    </ul>
+
+</body>
+</html>
