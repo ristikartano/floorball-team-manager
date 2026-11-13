@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.floorballmanager.floorballteammanager.domain.Team;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class TeamController {
@@ -50,5 +52,12 @@ public class TeamController {
         teamRepository.save(team);
         return "redirect:/teams";
     }
+
+    @PostMapping("/teams/delete/{id}")
+    public String deleteTeam(@PathVariable Long id) {
+        teamRepository.deleteById(id);
+        return "redirect:/teams";
+    }
+    
 
 }

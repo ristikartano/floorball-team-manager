@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="fi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Joukkueet</title>
 </head>
+
 <body>
     <h1>Joukkueet</h1>
     <p>Tervetuloa Floorball Team Manageriin!</p>
 
     <ul>
-        <li th:each="team : ${teams}" th:text="${team.name}"></li>
+        <li th:each="team : ${teams}">
+            <span th:text="${team.name}"></span>
+
+            <form th:action="@{/teams/delete/{id}(id=${team.id})}" 
+                method="post"
+                style="display: inline;">
+                <button type="submit">Poista joukkue</button>
+            </form>
+
+
+        </li>
     </ul>
 
     <a href="/teams/new">Lisää uusi joukkue</a>
 
 </body>
+
 </html>
