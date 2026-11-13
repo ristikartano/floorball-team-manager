@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lisää pelaaja</title>
+</head>
+
+<body>
+    <h1 th:text="${player.id == null} ? 'Lisää uusi pelaaja' : 'Muokkaa pelaajaa'"></h1>
+    <form   th:object="${player}" 
+            th:action="${player.id == null} ? @{/players} : @{/players/edit/{id}(id=${player.id})}" 
+            method="post">
+
+        <!-- Etunimilaatikko -->
+        <label for="firstName">Etunimi</label>
+        <input type="text" th:field="*{firstName}">
+
+        <!-- Sukunimilaatikko -->
+        <label for="lastName">Sukunimi</label>
+        <input type="text" th:field="*{lastName}">
+
+        <!-- Pudotusvalikko joukkueille -->
+        <label for="teamId">Joukkue</label>
+        <select id="teamId" name="teamId">
+            <option th:each="team : ${teams}" 
+                    th:value="${team.id}"
+                    th:text="${team.name}"
+                    th:selected="${player.team != null and player.team.id == team.id}"></option>
+        </select>
+
+        <button type="submit">Tallenna pelaaja</button>
+
+
+    </form>
+
+</body>
+
+</html>

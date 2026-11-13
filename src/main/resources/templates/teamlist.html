@@ -14,9 +14,7 @@
         <li th:each="team : ${teams}">
             <span th:text="${team.name}"></span>
 
-            <form th:action="@{/teams/delete/{id}(id=${team.id})}" 
-                method="post"
-                style="display: inline;">
+            <form th:action="@{/teams/delete/{id}(id=${team.id})}" method="post" style="display: inline;">
                 <button type="submit">Poista joukkue</button>
             </form>
 

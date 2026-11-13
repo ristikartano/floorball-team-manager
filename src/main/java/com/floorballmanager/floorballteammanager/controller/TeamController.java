@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.floorballmanager.floorballteammanager.domain.Team;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
