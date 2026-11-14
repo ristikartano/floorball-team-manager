@@ -7,11 +7,13 @@
 </head>
 
 <body>
-    <h1 th:text="${team.id == null} ? 'Lisää uusi joukkue' : 'Muokkaa joukkuetta'"></h1>
-    <form th:object="${team}" th:action="${team.id == null} ? @{/teams} : @{/teams/edit/{id}(id=${team.id})}"
+    <h1 th:text="${editId == null} ? 'Lisää uusi joukkue' : 'Muokkaa joukkuetta'"></h1>
+    <form th:object="${team}" th:action="${editId == null} ? @{/teams} : @{/teams/edit/{id}(id=${editId})}"
         method="post">
         <label for="name">Joukkueen nimi:</label>
         <input type="text" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span>
 
         <button type="submit">Tallenna joukkue</button>
 

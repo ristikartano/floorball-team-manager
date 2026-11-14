@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @Controller
 public class PlayerController {
@@ -40,7 +41,16 @@ public class PlayerController {
     }
 
     @PostMapping("/players")
-    public String savePlayer(@ModelAttribute Player player, @RequestParam Long teamId) {
+    public String savePlayer(@Valid @ModelAttribute Player player,
+            BindingResult result,
+            @RequestParam Long teamId,
+            Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("teams", teamRepository.findAll());
+            return "playerform";
+        }
+
         Team team = teamRepository.findById(teamId).get();
         player.setTeam(team);
         playerRepository.save(player);
@@ -52,20 +62,30 @@ public class PlayerController {
         Player player = playerRepository.findById(id).get();
         model.addAttribute("player", player);
         model.addAttribute("teams", teamRepository.findAll());
+        model.addAttribute("editId", id);
         return "playerform";
     }
 
     @PostMapping("/players/edit/{id}")
-    public String updatePlayer(@PathVariable Long id, @ModelAttribute Player formPlayer, @RequestParam Long teamId) {
+    public String updatePlayer(@PathVariable Long id,
+            @Valid @ModelAttribute("player") Player formPlayer,
+            BindingResult result,
+            @RequestParam Long teamId,
+            Model model) {
+
+        if (result.hasErrors()) {
+            formPlayer.setTeam(teamRepository.findById(teamId).get());
+            model.addAttribute("teams", teamRepository.findAll());
+            model.addAttribute("editId", id);
+            return "playerform";
+        }
 
         Player player = playerRepository.findById(id).get();
-
         player.setFirstName(formPlayer.getFirstName());
         player.setLastName(formPlayer.getLastName());
 
         Team team = teamRepository.findById(teamId).get();
         player.setTeam(team);
-
         playerRepository.save(player);
 
         return "redirect:/players";

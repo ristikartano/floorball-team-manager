@@ -7,18 +7,22 @@
 </head>
 
 <body>
-    <h1 th:text="${player.id == null} ? 'Lisää uusi pelaaja' : 'Muokkaa pelaajaa'"></h1>
+    <h1 th:text="${editId == null} ? 'Lisää uusi pelaaja' : 'Muokkaa pelaajaa'"></h1>
     <form   th:object="${player}" 
-            th:action="${player.id == null} ? @{/players} : @{/players/edit/{id}(id=${player.id})}" 
+            th:action="${editId == null} ? @{/players} : @{/players/edit/{id}(id=${editId})}" 
             method="post">
 
         <!-- Etunimilaatikko -->
         <label for="firstName">Etunimi</label>
         <input type="text" th:field="*{firstName}">
+        <span th:if="${#fields.hasErrors('firstName')}"
+              th:errors="*{firstName}"></span>
 
         <!-- Sukunimilaatikko -->
         <label for="lastName">Sukunimi</label>
         <input type="text" th:field="*{lastName}">
+        <span th:if="${#fields.hasErrors('lastName')}"
+              th:errors="*{lastName}"></span>
 
         <!-- Pudotusvalikko joukkueille -->
         <label for="teamId">Joukkue</label>

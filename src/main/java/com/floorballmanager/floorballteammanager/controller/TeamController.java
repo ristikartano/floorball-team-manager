@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.floorballmanager.floorballteammanager.domain.Team;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @Controller
 public class TeamController {
@@ -32,20 +33,34 @@ public class TeamController {
     }
 
     @PostMapping("/teams")
-    public String saveTeam(@ModelAttribute Team team) {
-        teamRepository.save(team);
-        return "redirect:/teams";
+    public String saveTeam(@Valid @ModelAttribute Team team, BindingResult result) {
+        if (result.hasErrors()) {
+            return "teamform";
+        } else {
+            teamRepository.save(team);
+            return "redirect:/teams";
+        }
     }
 
     @GetMapping("/teams/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Team team = teamRepository.findById(id).get();
         model.addAttribute("team", team);
+        model.addAttribute("editId", id);
         return "teamform";
     }
 
     @PostMapping("/teams/edit/{id}")
-    public String updateTeam(@PathVariable Long id, @ModelAttribute Team formTeam) {
+    public String updateTeam(@PathVariable Long id,
+            @Valid @ModelAttribute Team formTeam,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("editId", id);
+            return "teamform";
+        }
+
         Team team = teamRepository.findById(id).get();
         team.setName(formTeam.getName());
         teamRepository.save(team);
@@ -57,6 +72,5 @@ public class TeamController {
         teamRepository.deleteById(id);
         return "redirect:/teams";
     }
-    
 
 }

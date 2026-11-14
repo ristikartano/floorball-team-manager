@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class Player {
@@ -14,8 +16,12 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Etunimi ei saa olla tyhjä")
     private String firstName;
+
+    @NotBlank(message = "Sukunimi ei saa olla tyhjä")
     private String lastName;
+    
     private Integer jerseyNumber;
     private LocalDate dateOfBirth;
     private String gender;
