@@ -71,4 +71,10 @@ public class PlayerController {
         return "redirect:/players";
     }
 
+    @PostMapping("/players/delete/{id}")
+    public String deletePlayer(@PathVariable Long id) {
+        playerRepository.deleteById(id);
+        return "redirect:/players";
+    }
+
 }
