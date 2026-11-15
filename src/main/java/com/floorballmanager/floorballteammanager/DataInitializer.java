@@ -20,6 +20,9 @@ public class DataInitializer {
             Player player = new Player("Timo", "Virtanen");
             player.setTeam(team);
             playerRepository.save(player);
+
+            
+
         };
     }
 

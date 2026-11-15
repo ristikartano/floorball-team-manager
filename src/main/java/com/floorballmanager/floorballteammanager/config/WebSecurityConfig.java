@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +12,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.http.HttpMethod;
+import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 
 @Configuration
 public class WebSecurityConfig {
@@ -21,17 +21,20 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/players", "/teams")
                 .hasAnyRole("USER", "ADMIN")
-                .anyRequest().hasRole("ADMIN")
-            )
+                .anyRequest().hasRole("ADMIN"))
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(PathRequest.toH2Console()))
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin()))
                 .formLogin(form -> form
-                    .defaultSuccessUrl("/players", true)
-                    .permitAll())
+                        .defaultSuccessUrl("/players", true)
+                        .permitAll())
                 .logout(logout -> logout.permitAll());
 
         return http.build();
-
     }
 
     @Bean
