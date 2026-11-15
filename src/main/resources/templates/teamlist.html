@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<html lang="fi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -14,11 +14,10 @@
         <li th:each="team : ${teams}">
             <span th:text="${team.name}"></span>
 
-            <a th:href="@{/teams/edit/{id}(id=${team.id})}">Muokkaa joukkuetta</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/teams/edit/{id}(id=${team.id})}">Muokkaa joukkuetta</a>
 
-            <form th:action="@{/teams/delete/{id}(id=${team.id})}" 
-                    method="post" 
-                    style="display: inline;">
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/teams/delete/{id}(id=${team.id})}" method="post"
+                style="display: inline;">
                 <button type="submit">Poista joukkue</button>
             </form>
 
@@ -26,7 +25,7 @@
         </li>
     </ul>
 
-    <a href="/teams/new">Lisää uusi joukkue</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/teams/new}">Lisää uusi joukkue</a>
 
 </body>
 

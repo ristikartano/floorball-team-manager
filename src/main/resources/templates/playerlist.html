@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<html lang="fi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -16,11 +16,10 @@
                 ${player.lastName} + ' ' +  
                 '(' + ${player.team.name} + ')'"></span>
 
-            <a th:href="@{/players/edit/{id}(id=${player.id})}">Muokkaa pelaajaa</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/players/edit/{id}(id=${player.id})}">Muokkaa pelaajaa</a>
 
-            <form th:action="@{/players/delete/{id}(id=${player.id})}" 
-                    method="post" 
-                    style="display: inline;">
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/players/delete/{id}(id=${player.id})}" method="post"
+                style="display: inline;">
 
                 <button type="submit">Poista pelaaja</button>
 
@@ -29,7 +28,11 @@
         </li>
     </ul>
 
-    <a href="/players/new">Lisää uusi pelaaja</a>
+    <a href="/teams">Väliaikainen linkki joukkuesivulle</a>
+
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/players/new}">
+        Lisää uusi pelaaja
+    </a>
 
 
 </body>
