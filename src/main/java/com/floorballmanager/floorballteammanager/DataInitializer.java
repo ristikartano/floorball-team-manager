@@ -11,6 +11,8 @@ import com.floorballmanager.floorballteammanager.repository.PlayerRepository;
 @Configuration
 public class DataInitializer {
 
+    
+    // Luodaan esimerkkijoukkue ja -pelaaja sovelluksen käynnistyessä
     @Bean
     public CommandLineRunner init(TeamRepository teamRepository, PlayerRepository playerRepository) {
         return args -> {

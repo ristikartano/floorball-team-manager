@@ -26,6 +26,7 @@ public class Player {
     @Max(value = 99, message = "Pelinumero saa olla enintään 99")
     private Integer jerseyNumber;
 
+    // Useita pelaajia voidaan liittää samaan joukkueeseen
     @ManyToOne
     private Team team;
 

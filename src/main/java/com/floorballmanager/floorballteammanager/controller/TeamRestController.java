@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+ // Palauttaa joukkueiden tiedot JSON-muodossa HTML-sivun sijaan
 @RestController
 @RequestMapping("/api")
 public class TeamRestController {

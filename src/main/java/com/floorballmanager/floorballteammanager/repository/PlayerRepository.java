@@ -7,6 +7,7 @@ import com.floorballmanager.floorballteammanager.domain.Player;
 
 public interface PlayerRepository extends CrudRepository<Player, Long> {
 
+    // Hakee kaikki tiettyyn joukkueeseen kuuluvat pelaajat
     List<Player> findByTeam_Id(Long teamId);
 
 }

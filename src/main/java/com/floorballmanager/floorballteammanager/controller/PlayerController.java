@@ -46,11 +46,14 @@ public class PlayerController {
             @RequestParam Long teamId,
             Model model) {
 
+        // Jos syötteissä on virheitä, näytetään lomake uudelleen
+        // ja haetaan joukkueet takaisin pudotusvalikkoon
         if (result.hasErrors()) {
             model.addAttribute("teams", teamRepository.findAll());
             return "playerform";
         }
 
+        // Haetaan lomakkeella valittu joukkue ja liitetään se pelaajaan
         Team team = teamRepository.findById(teamId).get();
         player.setTeam(team);
         playerRepository.save(player);
@@ -73,6 +76,9 @@ public class PlayerController {
             @RequestParam Long teamId,
             Model model) {
 
+        
+        // Jos muokatut tiedot ovat virheellisiä, palautetaan lomake
+        // ja säilytetään valittu joukkue sekä muokkaustila
         if (result.hasErrors()) {
             formPlayer.setTeam(teamRepository.findById(teamId).get());
             model.addAttribute("teams", teamRepository.findAll());
@@ -80,6 +86,8 @@ public class PlayerController {
             return "playerform";
         }
 
+        // Haetaan muokattava pelaaja tietokannasta
+        // ja päivitetään hänen tietonsa lomakkeelta saaduilla arvoilla
         Player player = playerRepository.findById(id).get();
         player.setFirstName(formPlayer.getFirstName());
         player.setLastName(formPlayer.getLastName());

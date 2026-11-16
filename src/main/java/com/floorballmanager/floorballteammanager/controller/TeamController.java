@@ -64,6 +64,9 @@ public class TeamController {
             BindingResult result,
             Model model) {
 
+        
+        // Jos joukkueen nimi on virheellinen, palataan lomakkeelle
+        // ja säilytetään muokkaustila
         if (result.hasErrors()) {
             model.addAttribute("editId", id);
             return "teamform";
@@ -86,6 +89,9 @@ public class TeamController {
         Team team = teamRepository.findById(id).orElseThrow();
         model.addAttribute("team", team);
 
+
+        // Haetaan valittuun joukkueeseen kuuluvat pelaajat
+        // ja välitetään heidät joukkueen pelaajalistaan
         List<Player> players = playerRepository.findByTeam_Id(id);
         model.addAttribute("players", players);
         return "teamview";

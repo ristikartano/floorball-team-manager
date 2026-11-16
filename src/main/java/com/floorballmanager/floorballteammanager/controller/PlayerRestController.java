@@ -8,6 +8,7 @@ import com.floorballmanager.floorballteammanager.repository.PlayerRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+ // Palauttaa pelaajien tiedot JSON-muodossa HTML-sivun sijaan
 @RestController
 @RequestMapping("/api")
 public class PlayerRestController {

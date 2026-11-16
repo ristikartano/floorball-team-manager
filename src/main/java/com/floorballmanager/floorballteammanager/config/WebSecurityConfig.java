@@ -20,13 +20,16 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        // USER voi tarkastella listauksia, ADMIN voi käyttää kaikkia toimintoja
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/players", "/teams", "/teams/view/*")
                 .hasAnyRole("USER", "ADMIN")
                 .anyRequest().hasRole("ADMIN"))
+                // H2-konsolin pyynnöt ohitetaan CSRF-tarkistuksessa
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(PathRequest.toH2Console()))
+                // Sallitaan H2-konsolin näyttäminen saman sivuston kehyksessä
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin()))
                 .formLogin(form -> form
@@ -42,6 +45,8 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // Luodaan USER- ja ADMIN-käyttäjät muistiin.
+    // Salasanat haetaan ympäristömuuttujista.
     @Bean
     public UserDetailsService userDetailsService(
             @Value("${USER_PASSWORD}") String userPassword,

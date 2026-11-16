@@ -23,6 +23,8 @@ class FloorballteammanagerApplicationTests {
 	@Autowired
 	private PlayerRepository playerRepository;
 
+
+    // @Transactional peruu testin tietokantamuutokset testin päätyttyä
 	@Test
 	@Transactional
 	void testTeamSaving() {
