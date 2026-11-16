@@ -1,13 +1,13 @@
 package com.floorballmanager.floorballteammanager.domain;
 
-import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-
 
 @Entity
 public class Player {
@@ -21,10 +21,10 @@ public class Player {
 
     @NotBlank(message = "Sukunimi ei saa olla tyhjä")
     private String lastName;
-    
+
+    @Min(value = 1, message = "Pelinumeron pitää olla vähintään 1")
+    @Max(value = 99, message = "Pelinumero saa olla enintään 99")
     private Integer jerseyNumber;
-    private LocalDate dateOfBirth;
-    private String gender;
 
     @ManyToOne
     private Team team;
@@ -67,22 +67,6 @@ public class Player {
 
     public void setJerseyNumber(Integer jerseyNumber) {
         this.jerseyNumber = jerseyNumber;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public Long getId() {

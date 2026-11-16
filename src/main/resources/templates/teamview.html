@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Joukkueen pelaajat</title>
+</head>
+
+<body>
+    <h1 th:text="${team.name}"></h1>
+
+    <ul>
+        <li th:each="player : ${players}" th:text="${player.firstName} + ' ' + ${player.lastName} + ' ' + '#' + ${player.jerseyNumber} ">
+        </li>
+        
+    </ul>
+    
+    <form th:action="@{/teams}" method="get">
+        <button type="submit">Takaisin</button>
+    </form>
+
+</body>
+
+</html>

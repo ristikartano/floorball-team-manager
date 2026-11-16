@@ -12,20 +12,26 @@
 
     <ul>
         <li th:each="team : ${teams}">
-            <span th:text="${team.name}"></span>
+            <a th:href="@{/teams/view/{id}(id=${team.id})}" th:text="${team.name}"></a>
 
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{/teams/edit/{id}(id=${team.id})}">Muokkaa joukkuetta</a>
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/teams/edit/{id}(id=${team.id})}" method="get"
+                style="display: inline;">
+                <button type="submit">Muokkaa</button>
+            </form>
 
             <form sec:authorize="hasRole('ADMIN')" th:action="@{/teams/delete/{id}(id=${team.id})}" method="post"
                 style="display: inline;">
-                <button type="submit">Poista joukkue</button>
+                <button type="submit">Poista</button>
             </form>
-
 
         </li>
     </ul>
 
-    <a sec:authorize="hasRole('ADMIN')" th:href="@{/teams/new}">Lisää uusi joukkue</a>
+    <form sec:authorize="hasRole('ADMIN')" th:action="@{/teams/new}" method="get">
+        <button type="submit">Lisää uusi joukkue</button>
+    </form>
+
+    <a href="/players">Kaikki pelaajat</a>
 
 </body>
 

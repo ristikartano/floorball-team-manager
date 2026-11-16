@@ -83,6 +83,7 @@ public class PlayerController {
         Player player = playerRepository.findById(id).get();
         player.setFirstName(formPlayer.getFirstName());
         player.setLastName(formPlayer.getLastName());
+        player.setJerseyNumber(formPlayer.getJerseyNumber());
 
         Team team = teamRepository.findById(teamId).get();
         player.setTeam(team);

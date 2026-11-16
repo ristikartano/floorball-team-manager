@@ -33,6 +33,14 @@
                     th:selected="${player.team != null and player.team.id == team.id}"></option>
         </select>
 
+
+        <!-- Pelinumero -->
+        <label for="jerseyNumber">Pelinumero</label>
+        <input type="number" th:field="*{jerseyNumber}">
+        <span th:if="${#fields.hasErrors('jerseyNumber')}"
+              th:errors="*{jerseyNumber}"></span>
+
+
         <button type="submit">Tallenna pelaaja</button>
 
 

@@ -42,10 +42,12 @@ class FloorballteammanagerApplicationTests {
 		Player player = new Player();
 		player.setFirstName("Matti");
 		player.setLastName("Meikäläinen");
+		player.setJerseyNumber(25);
 		Player savedPlayer = playerRepository.save(player);
 		Player foundPlayer = playerRepository.findById(savedPlayer.getId()).orElseThrow();
 		assertEquals("Matti", foundPlayer.getFirstName());
 		assertEquals("Meikäläinen", foundPlayer.getLastName());
+		assertEquals(25, foundPlayer.getJerseyNumber());
 
 	}
 
@@ -61,10 +63,12 @@ class FloorballteammanagerApplicationTests {
 		Player player = new Player();
 		player.setFirstName("Matti");
 		player.setLastName("Meikäläinen");
+		player.setJerseyNumber(25);
+
 		player.setTeam(savedTeam);
 
 		Player savedPlayer = playerRepository.save(player);
-		
+
 		Player foundPlayer = playerRepository.findById(savedPlayer.getId()).orElseThrow();
 
 		assertEquals(savedTeam.getId(), foundPlayer.getTeam().getId());

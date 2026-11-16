@@ -1,24 +1,32 @@
 package com.floorballmanager.floorballteammanager.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.floorballmanager.floorballteammanager.repository.TeamRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.floorballmanager.floorballteammanager.domain.Player;
 import com.floorballmanager.floorballteammanager.domain.Team;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+import com.floorballmanager.floorballteammanager.repository.PlayerRepository;
+
 
 @Controller
 public class TeamController {
 
     private final TeamRepository teamRepository;
+    private final PlayerRepository playerRepository;
 
-    public TeamController(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
+    public TeamController(TeamRepository teamRepository, PlayerRepository playerRepository) {
+    this.teamRepository = teamRepository;
+    this.playerRepository = playerRepository;
+}
 
     @GetMapping("/teams")
     public String teamList(Model model) {
@@ -72,5 +80,16 @@ public class TeamController {
         teamRepository.deleteById(id);
         return "redirect:/teams";
     }
+
+    @GetMapping("/teams/view/{id}")
+    public String getViewPage(@PathVariable Long id, Model model) {
+        Team team = teamRepository.findById(id).orElseThrow();
+        model.addAttribute("team", team);
+
+        List<Player> players = playerRepository.findByTeam_Id(id);
+        model.addAttribute("players", players);
+        return "teamview";
+    }
+    
 
 }

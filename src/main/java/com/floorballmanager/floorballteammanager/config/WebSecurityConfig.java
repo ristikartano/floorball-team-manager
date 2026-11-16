@@ -22,7 +22,7 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/players", "/teams")
+                .requestMatchers(HttpMethod.GET, "/players", "/teams", "/teams/view/*")
                 .hasAnyRole("USER", "ADMIN")
                 .anyRequest().hasRole("ADMIN"))
                 .csrf(csrf -> csrf
