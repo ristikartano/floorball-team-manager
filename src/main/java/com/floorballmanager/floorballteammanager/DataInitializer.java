@@ -7,9 +7,12 @@ import com.floorballmanager.floorballteammanager.repository.TeamRepository;
 import com.floorballmanager.floorballteammanager.domain.Player;
 import com.floorballmanager.floorballteammanager.domain.Team;
 import com.floorballmanager.floorballteammanager.repository.PlayerRepository;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile("!rahti")
 public class DataInitializer {
+
 
     
     // Luodaan esimerkkijoukkue ja -pelaaja sovelluksen käynnistyessä
