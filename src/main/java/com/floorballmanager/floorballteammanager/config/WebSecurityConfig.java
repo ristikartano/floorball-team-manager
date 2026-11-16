@@ -21,7 +21,7 @@ public class WebSecurityConfig {
 
                 // USER voi tarkastella listauksia, ADMIN voi käyttää kaikkia toimintoja
                 http.authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/styöe.css").permitAll()
+                                .requestMatchers("/style.css").permitAll()
                                 .requestMatchers("/h2-console/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/players", "/teams", "/teams/view/*")
                                 .hasAnyRole("USER", "ADMIN")
