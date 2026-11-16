@@ -4,17 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Joukkueen pelaajat</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
 
 <body>
     <h1 th:text="${team.name}"></h1>
 
     <ul>
-        <li th:each="player : ${players}" th:text="${player.firstName} + ' ' + ${player.lastName} + ' ' + '#' + ${player.jerseyNumber} ">
+        <li th:each="player : ${players}"
+            th:text="${player.firstName} + ' ' + ${player.lastName} + ' ' + '#' + ${player.jerseyNumber} ">
         </li>
-        
+
     </ul>
-    
+
     <form th:action="@{/teams}" method="get">
         <button type="submit">Takaisin</button>
     </form>

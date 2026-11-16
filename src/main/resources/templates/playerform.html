@@ -4,41 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Lisää pelaaja</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
 
 <body>
     <h1 th:text="${editId == null} ? 'Lisää uusi pelaaja' : 'Muokkaa pelaajaa'"></h1>
-    <form   th:object="${player}" 
-            th:action="${editId == null} ? @{/players} : @{/players/edit/{id}(id=${editId})}" 
-            method="post">
+    <form th:object="${player}" th:action="${editId == null} ? @{/players} : @{/players/edit/{id}(id=${editId})}"
+        method="post" class="data-form">
 
         <!-- Etunimilaatikko -->
         <label for="firstName">Etunimi</label>
         <input type="text" th:field="*{firstName}">
-        <span th:if="${#fields.hasErrors('firstName')}"
-              th:errors="*{firstName}"></span>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 
         <!-- Sukunimilaatikko -->
         <label for="lastName">Sukunimi</label>
         <input type="text" th:field="*{lastName}">
-        <span th:if="${#fields.hasErrors('lastName')}"
-              th:errors="*{lastName}"></span>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 
         <!-- Pudotusvalikko joukkueille -->
         <label for="teamId">Joukkue</label>
         <select id="teamId" name="teamId">
-            <option th:each="team : ${teams}" 
-                    th:value="${team.id}"
-                    th:text="${team.name}"
-                    th:selected="${player.team != null and player.team.id == team.id}"></option>
+            <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"
+                th:selected="${player.team != null and player.team.id == team.id}"></option>
         </select>
 
 
         <!-- Pelinumero -->
         <label for="jerseyNumber">Pelinumero</label>
         <input type="number" th:field="*{jerseyNumber}">
-        <span th:if="${#fields.hasErrors('jerseyNumber')}"
-              th:errors="*{jerseyNumber}"></span>
+        <span th:if="${#fields.hasErrors('jerseyNumber')}" th:errors="*{jerseyNumber}"></span>
 
 
         <button type="submit">Tallenna pelaaja</button>

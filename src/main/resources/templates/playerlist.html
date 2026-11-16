@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Pelaajat</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
 
 <body>
@@ -14,7 +16,7 @@
         <li th:each="player : ${players}">
             <span th:text="${player.firstName} + ' ' + 
                 ${player.lastName} + ' ' + '#' + ${player.jerseyNumber} + ' ' +  
-                '(' + ${player.team.name} + ')'" ></span>
+                '(' + ${player.team.name} + ')'"></span>
 
             <form sec:authorize="hasRole('ADMIN')" th:action="@{/players/edit/{id}(id=${player.id})}" method="get"
                 style="display: inline;">
@@ -27,7 +29,7 @@
             <form sec:authorize="hasRole('ADMIN')" th:action="@{/players/delete/{id}(id=${player.id})}" method="post"
                 style="display: inline;">
 
-                <button type="submit">Poista</button>
+                <button type="submit" class="delete-button" >Poista</button>
 
             </form>
         </li>
@@ -37,9 +39,9 @@
         <button type="submit">Lisää uusi pelaaja</button>
     </form>
 
-    <a href="/teams">Joukkueet</a>
+    <a href="/teams" class="bottom-link" >Joukkueet</a>
 
-   
+
 
 
 </body>

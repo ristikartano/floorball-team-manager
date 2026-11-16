@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Lisää joukkue</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
 
 <body>
     <h1 th:text="${editId == null} ? 'Lisää uusi joukkue' : 'Muokkaa joukkuetta'"></h1>
     <form th:object="${team}" th:action="${editId == null} ? @{/teams} : @{/teams/edit/{id}(id=${editId})}"
-        method="post">
+        method="post" class="data-form">
         <label for="name">Joukkueen nimi:</label>
         <input type="text" th:field="*{name}">
-        <span th:if="${#fields.hasErrors('name')}"
-              th:errors="*{name}"></span>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
         <button type="submit">Tallenna joukkue</button>
 
